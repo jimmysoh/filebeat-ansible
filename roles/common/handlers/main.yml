@@ -1,0 +1,11 @@
+---
+# handlers file for common
+- name: start filebeat
+  shell: ./filebeat &
+  args:
+    chdir: /home/ec2-user/filebeat-7.17.1-linux-x86_64
+  become: yes
+  become_method: sudo
+  become_user: root
+  async: 5
+  poll: 5
