@@ -1,0 +1,21 @@
+---
+# tasks file for common
+- name: Copy updated filebeat.yml to host
+  copy:
+    src: /var/lib/jenkins/workspace/UpdateAgentConfig/filebeat.yml
+    dest: /home/ec2-user/filebeat-7.17.1-linux-x86_64  # link to /path/to/file
+    follow: yes # overwrite existing file
+
+- name: Stop filebeat
+  shell: sudo kill -9 $(ps -ef | grep filebeat | awk '{print $2}')
+  #shell: sudo killall filebeat
+  become: yes
+  become_method: sudo
+  become_user: root
+  ignore_errors: true # in case there is no process
+  notify: start filebeat
+  run_once: true
+
+- debug: msg="trigger start filebeat"
+  notify: start filebeat
+  changed_when: true
