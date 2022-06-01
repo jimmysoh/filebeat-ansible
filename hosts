@@ -1,0 +1,2 @@
+[vms]
+filebeat01 ansible_host=<filebeat_vm_ip_address>  ansible_ssh_extra_args='-o StrictHostKeyChecking=no'
